@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
 import java.util.Scanner;
 
 public class ChessBoard {
@@ -47,10 +48,21 @@ public class ChessBoard {
 	public static King kingw;
 	public static King kingb;
 
+	public static Map <String, Pawn> pawnMap = new HashMap<>();
+	public static Map <String, King> kingMap = new HashMap<>();
+	public static Map <String, Knight> knightMap = new HashMap<>();
+	public static Map <String, Rook> rookMap = new HashMap<>();
+	public static Map <String, Bishop> bishopMap = new HashMap<>();
+	public static Map <String, Queen> queenMap = new HashMap<>();
+
+	public static ArrayList<ChessPieces> allPieces = new ArrayList<>();
+
 	private static int columns = 8; 
 	private static int rows = 8;
 
 	public static boolean ifCheckmate = false; 
+
+	public static int turn = 0;
 
 
 	//int lastMoved (0=white 1=black)  method to return this 
@@ -62,61 +74,93 @@ public class ChessBoard {
 
 	public static void pawnCreation(int rank, int colour, boolean captured, int move) {
 		pawn1w = new Pawn(1, 0, false, 0, 6, 0);
+		allPieces.add(pawn1w);
 		pawn2w = new Pawn(1, 0, false, 0, 6, 1);
+		allPieces.add(pawn2w);
 		pawn3w = new Pawn(1, 0, false, 0, 6, 2);
+		allPieces.add(pawn3w);
 		pawn4w = new Pawn(1, 0, false, 0, 6, 3);
+		allPieces.add(pawn4w);
 		pawn5w = new Pawn(1, 0, false, 0, 6, 4);
+		allPieces.add(pawn5w);
 		pawn6w = new Pawn(1, 0, false, 0, 6, 5);
+		allPieces.add(pawn6w);
 		pawn7w = new Pawn(1, 0, false, 0, 6, 6);
+		allPieces.add(pawn7w);
 		pawn8w = new Pawn(1, 0, false, 0, 6, 7);
+		allPieces.add(pawn8w);
 
 		pawn1b = new Pawn(1, 1, false, 0, 1, 0);
+		allPieces.add(pawn1b);
 		pawn2b = new Pawn(1, 1, false, 0, 1, 1);
+		allPieces.add(pawn2b);
 		pawn3b = new Pawn(1, 1, false, 0, 1, 2);
+		allPieces.add(pawn3b);
 		pawn4b = new Pawn(1, 1, false, 0, 1, 3);
+		allPieces.add(pawn4b);
 		pawn5b = new Pawn(1, 1, false, 0, 1, 4);
+		allPieces.add(pawn5b);
 		pawn6b = new Pawn(1, 1, false, 0, 1, 5);
+		allPieces.add(pawn6b);
 		pawn7b = new Pawn(1, 1, false, 0, 1, 6);
+		allPieces.add(pawn7b);
 		pawn8b = new Pawn(1, 1, false, 0, 1, 7);
+		allPieces.add(pawn8b);
 	}
 
 	public static void rookCreation(int rank, int colour, boolean captured, int move) {
 		rook1w = new Rook(2, 0, false, 0, 7, 0);
+		allPieces.add(rook1w);
 		rook2w = new Rook(2, 0, false, 0, 7, 7);
+		allPieces.add(rook2w);
 
 		rook1b = new Rook(2, 1, false, 0, 0, 0);
+		allPieces.add(rook1b);
 		rook2b = new Rook(2, 1, false, 0, 0, 7);
+		allPieces.add(rook2b);
 	}
 
 	public static void knightCreation(int rank, int colour, boolean captured, int move) {
 		knight1w = new Knight(3, 0, false, 0, 7, 2);
+		allPieces.add(knight1w);
 		knight2w = new Knight(3, 0, false, 0, 7, 5);
+		allPieces.add(knight2w);
 
 		knight1b = new Knight(3, 1, false, 0, 0, 2);
+		allPieces.add(knight1b);
 		knight2b = new Knight(3, 1, false, 0, 0, 5);
+		allPieces.add(knight2b);
 	}
 
 	public static void bishopCreation(int rank, int colour, boolean captured, int move) {
 		bishop1ww = new Bishop(4, 0, false, 0, 7, 1);
+		allPieces.add(bishop1ww);
 		bishop2wb = new Bishop(4, 0, false, 0, 7, 6);
+		allPieces.add(bishop2wb);
 
 		bishop1bw = new Bishop(4, 1, false, 0, 0, 6);
+		allPieces.add(bishop1bw);
 		bishop2bb = new Bishop(4, 1, false, 0, 0, 1);
+		allPieces.add(bishop2bb);
 	}
 
 	public static void queenCreation(int rank, int colour, boolean captured, int move) {
 		queenw = new Queen(5, 0, false, 0, 7, 3);
+		allPieces.add(queenw);
 
 		queenb = new Queen(5, 1, false, 0, 0, 3);
+		allPieces.add(queenb);
 	}
 
 	public static void kingCreation(int rank, int colour, boolean captured, int move) {
 		kingw = new King(6, 0, false, 0, 7, 4);
+		allPieces.add(kingw);
 
 		kingb = new King(6, 1, false, 0, 0, 4);
+		allPieces.add(kingb);
 	}
 
-	//public pawn1 = new Pawn(rank, colour); 
+
 
 	public static Object[][] chessBoard() {
 		Object[][] board = new Object[rows][columns];
@@ -247,6 +291,9 @@ public class ChessBoard {
 
 	//capture method
 	public static void capture (Object[][] board, ChessPieces piece, int sourceRow, int sourceCol, int destRow, int destCol){
+		ChessPieces capturedPiece = (ChessPieces) board[destRow][destCol];
+		capturedPiece.captured = true;
+
 		System.out.println("Piece " + piece + " captures piece at row " + destRow + ", column " + destCol + ".");
 
 		if (piece.row % 2 == 0 && piece.col % 2 == 0) {
@@ -268,8 +315,6 @@ public class ChessBoard {
 			}
 			System.out.println();
 		}
-		ChessPieces capturedPiece = (ChessPieces) board[destRow][destCol];
-		capturedPiece.captured = true;
 		piece.row = destRow;
 		piece.col = destCol;
 		piece.move++;
@@ -278,24 +323,8 @@ public class ChessBoard {
 
 	//ai black pieces see where it can go, random piece
 
-	public static void main(String[] args) {
-		pawnCreation(1, 2, false, 0);
-		rookCreation(2, 2, false, 0);
-		knightCreation(3, 2, false, 0);
-		bishopCreation(4, 2, false, 0);
-		queenCreation(5, 2, false, 0);
-		kingCreation(6, 2, false, 0);
-		Object[][] board = chessBoard();
-		for(int i=0; i<rows; i++) {
+	public static void setup() {
 
-			for(int j = 0; j < columns; j++) {
-				System.out.print(board[i][j]);
-				System.out.print("  ");
-			}
-			System.out.println();
-		}
-
-		Map <String, Pawn> pawnMap = new HashMap<>();
 		pawnMap.put("pawn2w", pawn2w);
 		pawnMap.put("pawn1w", pawn1w);
 		pawnMap.put("pawn3w", pawn3w);
@@ -314,34 +343,54 @@ public class ChessBoard {
 		pawnMap.put("pawn7b", pawn7b);
 		pawnMap.put("pawn8b", pawn8b);
 
-		Map <String, King> kingMap = new HashMap<>();
+
 		kingMap.put("kingw", kingw);
 		kingMap.put("kingb", kingb);
 
-		Map <String, Knight> knightMap = new HashMap<>();
+
 		knightMap.put("knight1w", knight1w);
 		knightMap.put("knight2w", knight2w);
 
 		knightMap.put("knight1b", knight1b);
 		knightMap.put("knight2b", knight2b);
 
-		Map <String, Rook> rookMap = new HashMap<>();
+
 		rookMap.put("rook1w", rook1w);
 		rookMap.put("rook2w", rook2w);
 
 		rookMap.put("rook1b", rook1b);
 		rookMap.put("rook2b", rook2b);
 
-		Map <String, Bishop> bishopMap = new HashMap<>();
+
 		bishopMap.put("bishop1ww", bishop1ww);
 		bishopMap.put("bishop2wb", bishop2wb);
 
 		bishopMap.put("bishop1bw", bishop1bw);
 		bishopMap.put("bishop2bb", bishop2bb);
 
-		Map <String, Queen> queenMap = new HashMap<>();
+
 		queenMap.put("queenw", queenw);
 		queenMap.put("queenb", queenb);
+	}
+
+	public static void main(String[] args) {
+		pawnCreation(1, 2, false, 0);
+		rookCreation(2, 2, false, 0);
+		knightCreation(3, 2, false, 0);
+		bishopCreation(4, 2, false, 0);
+		queenCreation(5, 2, false, 0);
+		kingCreation(6, 2, false, 0);
+		Object[][] board = chessBoard();
+		for(int i=0; i<rows; i++) {
+
+			for(int j = 0; j < columns; j++) {
+				System.out.print(board[i][j]);
+				System.out.print("  ");
+			}
+			System.out.println();
+		}
+
+		setup();
 
 		//System.out.print(Arrays.deepToString(chessBoard()));
 		Scanner userInput = new Scanner(System.in);
@@ -350,162 +399,189 @@ public class ChessBoard {
 		Integer columnScan;
 		//perhaps ask for a piece type and then lead to if else statement to lead to corresponding piece	
 		//while loop until game = won bool 	
-		//IF PIECE CAPTURED, CANNOT MOVE 
-		while(ifCheckmate == false) {
-			System.out.println("Piece?");
-			pieceName = userInput.next();
-			if (pieceName.contains("pawn")) {
-				System.out.print(pieceName);
-				Pawn piece = pawnMap.get(pieceName);
-				ArrayList<Object> destinations = piece.pawnMovement(board, piece.row, piece.col); 
-				if (destinations.isEmpty()) {
-					System.out.println("try another piece"); 
-				} else {
-					System.out.println("Row?");
-					rowScan = userInput.nextInt();
-					System.out.println("Column?");
-					columnScan = userInput.nextInt();
-					if(board[rowScan][columnScan].equals(0) || board[rowScan][columnScan].equals(1)) {
-						if(destinations.contains(Arrays.asList(rowScan,columnScan))) { 
-							movePiece(board, piece, piece.row, piece.col, rowScan, columnScan);
-						} else{
-							System.out.println("destination not valid boundary"); 
-						}
+		while(kingw.captured == false && kingb.captured == false) {
+			if(turn == 0) {
+				System.out.println("Piece?");
+				pieceName = userInput.next();
+				if (pieceName.contains("pawn")) {
+					System.out.print(pieceName);
+					Pawn piece = pawnMap.get(pieceName);
+					ArrayList<Object> destinations = piece.pawnMovement(board, piece.row, piece.col); 
+					if (destinations.isEmpty()) {
+						System.out.println("try another piece"); 
 					} else {
-						System.out.println("destination not valid piece"); 
-					}
-				}
-			} else if (pieceName.contains("king")){
-				System.out.print(pieceName);
-				King piece = kingMap.get(pieceName);
-				ArrayList<Object> destinations = piece.kingMovement(board, piece.row, piece.col); 
-				if (destinations.isEmpty()) {
-					System.out.println("try another piece"); 
-				} else {
-					System.out.println("Row?");
-					rowScan = userInput.nextInt();
-					System.out.println("Column?");
-					columnScan = userInput.nextInt();
-					if(board[rowScan][columnScan].equals(0) || board[rowScan][columnScan].equals(1)) {
-						if(destinations.contains(Arrays.asList(rowScan,columnScan))) { 
-							movePiece(board, piece, piece.row, piece.col, rowScan, columnScan);
-						}  else{
-							System.out.println("destination not valid boundary"); 
+						System.out.println("Row?");
+						rowScan = userInput.nextInt();
+						System.out.println("Column?");
+						columnScan = userInput.nextInt();
+						if(board[rowScan][columnScan].equals(0) || board[rowScan][columnScan].equals(1)) {
+							if(destinations.contains(Arrays.asList(rowScan,columnScan))) { 
+								movePiece(board, piece, piece.row, piece.col, rowScan, columnScan);
+							} else{
+								System.out.println("destination not valid boundary"); 
+							}
+						} else {
+							System.out.println("destination not valid piece"); 
 						}
-					}	else if(destinations.contains(Arrays.asList(rowScan,columnScan, 50))) {
-						System.out.println("I can capture " + rowScan + ", " + columnScan);
-						capture(board, piece, piece.row, piece.col, rowScan, columnScan);
+					}
+				} else if (pieceName.contains("king")){
+					System.out.print(pieceName);
+					King piece = kingMap.get(pieceName);
+					ArrayList<Object> destinations = piece.kingMovement(board, piece.row, piece.col); 
+					if (destinations.isEmpty()) {
+						System.out.println("try another piece"); 
+					} else {
+						System.out.println("Row?");
+						rowScan = userInput.nextInt();
+						System.out.println("Column?");
+						columnScan = userInput.nextInt();
+						if(board[rowScan][columnScan].equals(0) || board[rowScan][columnScan].equals(1)) {
+							if(destinations.contains(Arrays.asList(rowScan,columnScan))) { 
+								movePiece(board, piece, piece.row, piece.col, rowScan, columnScan);
+							}  else{
+								System.out.println("destination not valid boundary"); 
+							}
+						}	else if(destinations.contains(Arrays.asList(rowScan,columnScan, 50))) {
+							System.out.println("I can capture " + rowScan + ", " + columnScan);
+							capture(board, piece, piece.row, piece.col, rowScan, columnScan);
 
-					} else {
-						System.out.println("destination not valid piece"); 
-					}
-				}
-			} else if (pieceName.contains("knight")){
-				System.out.print(pieceName);
-				Knight piece = knightMap.get(pieceName);
-				ArrayList<Object> destinations = piece.knightMovement(board, piece.row, piece.col); 
-				if (destinations.isEmpty()) {
-					System.out.println("try another piece"); 
-				} else {
-					System.out.println("Row?");
-					rowScan = userInput.nextInt();
-					System.out.println("Column?");
-					columnScan = userInput.nextInt();
-					if(board[rowScan][columnScan].equals(0) || board[rowScan][columnScan].equals(1)) {
-						if(destinations.contains(Arrays.asList(rowScan,columnScan))) { 
-							movePiece(board, piece, piece.row, piece.col, rowScan, columnScan);
-						}  else{
-							System.out.println("destination not valid boundary"); 
+						} else {
+							System.out.println("destination not valid piece"); 
 						}
-					}	else if(destinations.contains(Arrays.asList(rowScan,columnScan, 50))) {
-						System.out.println("I can capture " + rowScan + ", " + columnScan);
-						capture(board, piece, piece.row, piece.col, rowScan, columnScan);
-
-					} else {
-						System.out.println("destination not valid piece"); 
 					}
-				}
-			} else if (pieceName.contains("rook")){
-				System.out.print(pieceName);
-				Rook piece = rookMap.get(pieceName);
-				ArrayList<Object> destinations = piece.rookMovement(board, piece.row, piece.col); 
-				if (destinations.isEmpty()) {
-					System.out.println("try another piece"); 
-				} else {
-					System.out.println("Row?");
-					rowScan = userInput.nextInt();
-					System.out.println("Column?");
-					columnScan = userInput.nextInt();
-					if(board[rowScan][columnScan].equals(0) || board[rowScan][columnScan].equals(1)) {
-						if(destinations.contains(Arrays.asList(rowScan,columnScan))) { 
-							movePiece(board, piece, piece.row, piece.col, rowScan, columnScan);
-						}  else{
-							System.out.println("destination not valid boundary"); 
+				} else if (pieceName.contains("knight")){
+					System.out.print(pieceName);
+					Knight piece = knightMap.get(pieceName);
+					ArrayList<Object> destinations = piece.knightMovement(board, piece.row, piece.col); 
+					if (destinations.isEmpty()) {
+						System.out.println("try another piece"); 
+					} else {
+						System.out.println("Row?");
+						rowScan = userInput.nextInt();
+						System.out.println("Column?");
+						columnScan = userInput.nextInt();
+						if(board[rowScan][columnScan].equals(0) || board[rowScan][columnScan].equals(1)) {
+							if(destinations.contains(Arrays.asList(rowScan,columnScan))) { 
+								movePiece(board, piece, piece.row, piece.col, rowScan, columnScan);
+							}  else{
+								System.out.println("destination not valid boundary"); 
+							}
+						}	else if(destinations.contains(Arrays.asList(rowScan,columnScan, 50))) {
+							System.out.println("I can capture " + rowScan + ", " + columnScan);
+							capture(board, piece, piece.row, piece.col, rowScan, columnScan);
+
+						} else {
+							System.out.println("destination not valid piece"); 
 						}
-					}	else if(destinations.contains(Arrays.asList(rowScan,columnScan, 50))) {
-						System.out.println("I can capture " + rowScan + ", " + columnScan);
-						capture(board, piece, piece.row, piece.col, rowScan, columnScan);
-
-					} else {
-						System.out.println("destination not valid piece"); 
 					}
-				}
-			} else if (pieceName.contains("bishop")){
-				System.out.print(pieceName);
-				Bishop piece = bishopMap.get(pieceName);
-				ArrayList<Object> destinations = piece.bishopMovement(board, piece.row, piece.col); 
-				if (destinations.isEmpty()) {
-					System.out.println("try another piece"); 
-				} else {
-					System.out.println("Row?");
-					rowScan = userInput.nextInt();
-					System.out.println("Column?");
-					columnScan = userInput.nextInt();
-					if(board[rowScan][columnScan].equals(0) || board[rowScan][columnScan].equals(1)) {
-						if(destinations.contains(Arrays.asList(rowScan,columnScan))) { 
-							movePiece(board, piece, piece.row, piece.col, rowScan, columnScan);
-						}  else{
-							System.out.println("destination not valid boundary"); 
+				} else if (pieceName.contains("rook")){
+					System.out.print(pieceName);
+					Rook piece = rookMap.get(pieceName);
+					ArrayList<Object> destinations = piece.rookMovement(board, piece.row, piece.col); 
+					if (destinations.isEmpty()) {
+						System.out.println("try another piece"); 
+					} else {
+						System.out.println("Row?");
+						rowScan = userInput.nextInt();
+						System.out.println("Column?");
+						columnScan = userInput.nextInt();
+						if(board[rowScan][columnScan].equals(0) || board[rowScan][columnScan].equals(1)) {
+							if(destinations.contains(Arrays.asList(rowScan,columnScan))) { 
+								movePiece(board, piece, piece.row, piece.col, rowScan, columnScan);
+							}  else{
+								System.out.println("destination not valid boundary"); 
+							}
+						}	else if(destinations.contains(Arrays.asList(rowScan,columnScan, 50))) {
+							System.out.println("I can capture " + rowScan + ", " + columnScan);
+							capture(board, piece, piece.row, piece.col, rowScan, columnScan);
+
+						} else {
+							System.out.println("destination not valid piece"); 
 						}
-					}	else if(destinations.contains(Arrays.asList(rowScan,columnScan, 50))) {
-						System.out.println("I can capture " + rowScan + ", " + columnScan);
-						capture(board, piece, piece.row, piece.col, rowScan, columnScan);
-
-					} else {
-						System.out.println("destination not valid piece"); 
 					}
-				}
-			} else if (pieceName.contains("queen")){
-				System.out.print(pieceName);
-				Queen piece = queenMap.get(pieceName);
-				ArrayList<Object> destinations = piece.queenMovement(board, piece.row, piece.col); 
-				if (destinations.isEmpty()) {
-					System.out.println("try another piece"); 
-				} else {
-					System.out.println("Row?");
-					rowScan = userInput.nextInt();
-					System.out.println("Column?");
-					columnScan = userInput.nextInt();
-					if(board[rowScan][columnScan].equals(0) || board[rowScan][columnScan].equals(1)) {
-						if(destinations.contains(Arrays.asList(rowScan,columnScan))) { 
-							movePiece(board, piece, piece.row, piece.col, rowScan, columnScan);
-						}  else{
-							System.out.println("destination not valid boundary"); 
+				} else if (pieceName.contains("bishop")){
+					System.out.print(pieceName);
+					Bishop piece = bishopMap.get(pieceName);
+					ArrayList<Object> destinations = piece.bishopMovement(board, piece.row, piece.col); 
+					if (destinations.isEmpty()) {
+						System.out.println("try another piece"); 
+					} else {
+						System.out.println("Row?");
+						rowScan = userInput.nextInt();
+						System.out.println("Column?");
+						columnScan = userInput.nextInt();
+						if(board[rowScan][columnScan].equals(0) || board[rowScan][columnScan].equals(1)) {
+							if(destinations.contains(Arrays.asList(rowScan,columnScan))) { 
+								movePiece(board, piece, piece.row, piece.col, rowScan, columnScan);
+							}  else{
+								System.out.println("destination not valid boundary"); 
+							}
+						}	else if(destinations.contains(Arrays.asList(rowScan,columnScan, 50))) {
+							System.out.println("I can capture " + rowScan + ", " + columnScan);
+							capture(board, piece, piece.row, piece.col, rowScan, columnScan);
+
+						} else {
+							System.out.println("destination not valid piece"); 
 						}
-					}	else if(destinations.contains(Arrays.asList(rowScan,columnScan, 50))) {
-						System.out.println("I can capture " + rowScan + ", " + columnScan);
-						capture(board, piece, piece.row, piece.col, rowScan, columnScan);
-
-					} else {
-						System.out.println("destination not valid piece"); 
 					}
+				} else if (pieceName.contains("queen")){
+					System.out.print(pieceName);
+					Queen piece = queenMap.get(pieceName);
+					ArrayList<Object> destinations = piece.queenMovement(board, piece.row, piece.col); 
+					if (destinations.isEmpty()) {
+						System.out.println("try another piece"); 
+					} else {
+						System.out.println("Row?");
+						rowScan = userInput.nextInt();
+						System.out.println("Column?");
+						columnScan = userInput.nextInt();
+						if(board[rowScan][columnScan].equals(0) || board[rowScan][columnScan].equals(1)) {
+							if(destinations.contains(Arrays.asList(rowScan,columnScan))) { 
+								movePiece(board, piece, piece.row, piece.col, rowScan, columnScan);
+							}  else{
+								System.out.println("destination not valid boundary"); 
+							}
+						}	else if(destinations.contains(Arrays.asList(rowScan,columnScan, 50))) {
+							System.out.println("I can capture " + rowScan + ", " + columnScan);
+							capture(board, piece, piece.row, piece.col, rowScan, columnScan);
+
+						} else {
+							System.out.println("destination not valid piece"); 
+						}
+					}
+				} else {
+					System.out.println("keyword does not exist, try again");
 				}
+				turn = 1;
 			} else {
-				System.out.println("keyword does not exist, try again");
+				Random generator=new Random();
+				int comppieceindex = generator.nextInt(32);
+				ChessPieces comppiece = allPieces.get(comppieceindex);
+				String compPieceName = comppiece.name;
+				
+				if (compPieceName.contains("pawn")) {
+					Pawn comppawn = (Pawn) comppiece;
+					ArrayList<Object> destinations = comppawn.pawnMovement(board, comppiece.row, comppiece.col); 
+					if (destinations.isEmpty()) {
+						System.out.println("try another piece"); 
+					} else {
+						Random destinationGenerator = new Random();
+						int indexOfDestination = destinationGenerator.nextInt(destinations.size()-1);
+						System.out.println(destinations.get(indexOfDestination));
+						ArrayList<Object> destinationSquare = (ArrayList<Object>) destinations.get(indexOfDestination);
+						int destRow = (int) destinationSquare.get(0);
+						int destCol = (int) destinationSquare.get(1);
+						movePiece(board, comppiece, comppiece.row,comppiece.col,destRow,destCol);
+						
+					}
+				} else {
+					System.out.println("I can't move that yet");
+				}
+				turn = 0;
 			}
 		}
 		userInput.close();
-
+		System.out.println("game over");
 	}
 
 }
