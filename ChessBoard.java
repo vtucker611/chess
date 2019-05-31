@@ -161,6 +161,7 @@ public class ChessBoard {
 		//this would lay out the chessBoard
 	}
 
+	//moves the selected piece and replaces it with a 0 or 1 based on which colour the empty space is 
 	public static void movePiece(Object[][] board, ChessPieces piece, int sourceRow, int sourceCol, int destRow, int destCol) {
 
 		System.out.println("Piece " + piece + " moves to row " + destRow + ", column " + destCol + ".");
@@ -190,6 +191,7 @@ public class ChessBoard {
 		System.out.println(piece + " has moved " + piece.move + " times");
 	}
 
+	//checks if the inputed row and col are occupied by a piece 
 	public static boolean isOccupied (Object[][] board, int row, int col) {
 		if(inBoundary(board, row, col)) {
 			if(board[row][col].equals(0) || board[row][col].equals(1)) {
@@ -202,6 +204,7 @@ public class ChessBoard {
 		}
 	}
 
+	//checks if the inputed row and col are occupied by a white piece 
 	public static boolean isOccupiedByWhite(Object[][] board, int row, int col) {
 		if(inBoundary(board, row, col)) {
 			if(board[row][col].equals(0) || board[row][col].equals(1)) {
@@ -217,6 +220,7 @@ public class ChessBoard {
 		return false;
 	}
 
+	//checks if the inputed row and col are occupied by a black piece 
 	public static boolean isOccupiedByBlack(Object[][] board, int row, int col) {
 		if(inBoundary(board, row, col)) {
 			if(board[row][col].equals(0) || board[row][col].equals(1)) {
@@ -232,6 +236,7 @@ public class ChessBoard {
 		return false;
 	}
 
+	//checks if inputed row and col are in the boundary of the board
 	public static boolean inBoundary (Object[][] board, int row, int col) {
 		if ((row >= 0) && (row <= 7) && (col >= 0) && (col <= 7)) {
 			return true;
@@ -239,7 +244,8 @@ public class ChessBoard {
 			return false;
 		}
 	}
-	
+
+	//capture method
 	public static void capture (Object[][] board, ChessPieces piece, int sourceRow, int sourceCol, int destRow, int destCol){
 		System.out.println("Piece " + piece + " captures piece at row " + destRow + ", column " + destCol + ".");
 
@@ -269,7 +275,7 @@ public class ChessBoard {
 		piece.move++;
 		System.out.println(piece + " has moved " + piece.move + " times");
 	}
-	
+
 	//ai black pieces see where it can go, random piece
 
 	public static void main(String[] args) {
@@ -344,6 +350,7 @@ public class ChessBoard {
 		Integer columnScan;
 		//perhaps ask for a piece type and then lead to if else statement to lead to corresponding piece	
 		//while loop until game = won bool 	
+		//IF PIECE CAPTURED, CANNOT MOVE 
 		while(ifCheckmate == false) {
 			System.out.println("Piece?");
 			pieceName = userInput.next();
@@ -361,10 +368,6 @@ public class ChessBoard {
 					if(board[rowScan][columnScan].equals(0) || board[rowScan][columnScan].equals(1)) {
 						if(destinations.contains(Arrays.asList(rowScan,columnScan))) { 
 							movePiece(board, piece, piece.row, piece.col, rowScan, columnScan);
-						} 
-						else if(destinations.contains(Arrays.asList(rowScan,columnScan, 50)))
-						{
-							System.out.println("I can capture " + rowScan + ", " + columnScan);
 						} else{
 							System.out.println("destination not valid boundary"); 
 						}
@@ -386,13 +389,13 @@ public class ChessBoard {
 					if(board[rowScan][columnScan].equals(0) || board[rowScan][columnScan].equals(1)) {
 						if(destinations.contains(Arrays.asList(rowScan,columnScan))) { 
 							movePiece(board, piece, piece.row, piece.col, rowScan, columnScan);
-						} 
-						else if(destinations.contains(Arrays.asList(rowScan,columnScan, 50)))
-						{
-							System.out.println("I can capture " + rowScan + ", " + columnScan);
-						} else{
+						}  else{
 							System.out.println("destination not valid boundary"); 
 						}
+					}	else if(destinations.contains(Arrays.asList(rowScan,columnScan, 50))) {
+						System.out.println("I can capture " + rowScan + ", " + columnScan);
+						capture(board, piece, piece.row, piece.col, rowScan, columnScan);
+
 					} else {
 						System.out.println("destination not valid piece"); 
 					}
@@ -411,13 +414,13 @@ public class ChessBoard {
 					if(board[rowScan][columnScan].equals(0) || board[rowScan][columnScan].equals(1)) {
 						if(destinations.contains(Arrays.asList(rowScan,columnScan))) { 
 							movePiece(board, piece, piece.row, piece.col, rowScan, columnScan);
-						} 
-						else if(destinations.contains(Arrays.asList(rowScan,columnScan, 50)))
-						{
-							System.out.println("I can capture " + rowScan + ", " + columnScan);
-						} else{
+						}  else{
 							System.out.println("destination not valid boundary"); 
 						}
+					}	else if(destinations.contains(Arrays.asList(rowScan,columnScan, 50))) {
+						System.out.println("I can capture " + rowScan + ", " + columnScan);
+						capture(board, piece, piece.row, piece.col, rowScan, columnScan);
+
 					} else {
 						System.out.println("destination not valid piece"); 
 					}
@@ -440,8 +443,8 @@ public class ChessBoard {
 							System.out.println("destination not valid boundary"); 
 						}
 					}	else if(destinations.contains(Arrays.asList(rowScan,columnScan, 50))) {
-							System.out.println("I can capture " + rowScan + ", " + columnScan);
-							capture(board, piece, piece.row, piece.col, rowScan, columnScan);
+						System.out.println("I can capture " + rowScan + ", " + columnScan);
+						capture(board, piece, piece.row, piece.col, rowScan, columnScan);
 
 					} else {
 						System.out.println("destination not valid piece"); 
@@ -461,13 +464,13 @@ public class ChessBoard {
 					if(board[rowScan][columnScan].equals(0) || board[rowScan][columnScan].equals(1)) {
 						if(destinations.contains(Arrays.asList(rowScan,columnScan))) { 
 							movePiece(board, piece, piece.row, piece.col, rowScan, columnScan);
-						} 
-						else if(destinations.contains(Arrays.asList(rowScan,columnScan, 50)))
-						{
-							System.out.println("I can capture " + rowScan + ", " + columnScan);
-						} else{
+						}  else{
 							System.out.println("destination not valid boundary"); 
 						}
+					}	else if(destinations.contains(Arrays.asList(rowScan,columnScan, 50))) {
+						System.out.println("I can capture " + rowScan + ", " + columnScan);
+						capture(board, piece, piece.row, piece.col, rowScan, columnScan);
+
 					} else {
 						System.out.println("destination not valid piece"); 
 					}
@@ -486,13 +489,13 @@ public class ChessBoard {
 					if(board[rowScan][columnScan].equals(0) || board[rowScan][columnScan].equals(1)) {
 						if(destinations.contains(Arrays.asList(rowScan,columnScan))) { 
 							movePiece(board, piece, piece.row, piece.col, rowScan, columnScan);
-						} 
-						else if(destinations.contains(Arrays.asList(rowScan,columnScan, 50)))
-						{
-							System.out.println("I can capture " + rowScan + ", " + columnScan);
-						} else{
+						}  else{
 							System.out.println("destination not valid boundary"); 
 						}
+					}	else if(destinations.contains(Arrays.asList(rowScan,columnScan, 50))) {
+						System.out.println("I can capture " + rowScan + ", " + columnScan);
+						capture(board, piece, piece.row, piece.col, rowScan, columnScan);
+
 					} else {
 						System.out.println("destination not valid piece"); 
 					}
