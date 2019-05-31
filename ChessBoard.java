@@ -56,7 +56,8 @@ public class ChessBoard {
 	public static Map <String, Bishop> bishopMap = new HashMap<>();
 	public static Map <String, Queen> queenMap = new HashMap<>();
 
-	public static ArrayList<ChessPieces> allPieces = new ArrayList<>();
+	public static ArrayList<ChessPieces> allBlackPieces = new ArrayList<>();
+	public static ArrayList<ChessPieces> allWhitePieces = new ArrayList<>();
 
 	private static int columns = 8; 
 	private static int rows = 8;
@@ -75,93 +76,91 @@ public class ChessBoard {
 
 	public static void pawnCreation(int rank, int colour, boolean captured, int move) {
 		pawn1w = new Pawn(1, 0, false, 0, 6, 0);
-		allPieces.add(pawn1w);
+		allWhitePieces.add(pawn1w);
 		pawn2w = new Pawn(1, 0, false, 0, 6, 1);
-		allPieces.add(pawn2w);
+		allWhitePieces.add(pawn2w);
 		pawn3w = new Pawn(1, 0, false, 0, 6, 2);
-		allPieces.add(pawn3w);
+		allWhitePieces.add(pawn3w);
 		pawn4w = new Pawn(1, 0, false, 0, 6, 3);
-		allPieces.add(pawn4w);
+		allWhitePieces.add(pawn4w);
 		pawn5w = new Pawn(1, 0, false, 0, 6, 4);
-		allPieces.add(pawn5w);
+		allWhitePieces.add(pawn5w);
 		pawn6w = new Pawn(1, 0, false, 0, 6, 5);
-		allPieces.add(pawn6w);
+		allWhitePieces.add(pawn6w);
 		pawn7w = new Pawn(1, 0, false, 0, 6, 6);
-		allPieces.add(pawn7w);
+		allWhitePieces.add(pawn7w);
 		pawn8w = new Pawn(1, 0, false, 0, 6, 7);
-		allPieces.add(pawn8w);
+		allWhitePieces.add(pawn8w);
 
 		pawn1b = new Pawn(1, 1, false, 0, 1, 0);
-		allPieces.add(pawn1b);
+		allBlackPieces.add(pawn1b);
 		pawn2b = new Pawn(1, 1, false, 0, 1, 1);
-		allPieces.add(pawn2b);
+		allBlackPieces.add(pawn2b);
 		pawn3b = new Pawn(1, 1, false, 0, 1, 2);
-		allPieces.add(pawn3b);
+		allBlackPieces.add(pawn3b);
 		pawn4b = new Pawn(1, 1, false, 0, 1, 3);
-		allPieces.add(pawn4b);
+		allBlackPieces.add(pawn4b);
 		pawn5b = new Pawn(1, 1, false, 0, 1, 4);
-		allPieces.add(pawn5b);
+		allBlackPieces.add(pawn5b);
 		pawn6b = new Pawn(1, 1, false, 0, 1, 5);
-		allPieces.add(pawn6b);
+		allBlackPieces.add(pawn6b);
 		pawn7b = new Pawn(1, 1, false, 0, 1, 6);
-		allPieces.add(pawn7b);
+		allBlackPieces.add(pawn7b);
 		pawn8b = new Pawn(1, 1, false, 0, 1, 7);
-		allPieces.add(pawn8b);
+		allBlackPieces.add(pawn8b);
 	}
 
 	public static void rookCreation(int rank, int colour, boolean captured, int move) {
 		rook1w = new Rook(2, 0, false, 0, 7, 0);
-		allPieces.add(rook1w);
+		allWhitePieces.add(rook1w);
 		rook2w = new Rook(2, 0, false, 0, 7, 7);
-		allPieces.add(rook2w);
+		allWhitePieces.add(rook2w);
 
 		rook1b = new Rook(2, 1, false, 0, 0, 0);
-		allPieces.add(rook1b);
+		allBlackPieces.add(rook1b);
 		rook2b = new Rook(2, 1, false, 0, 0, 7);
-		allPieces.add(rook2b);
+		allBlackPieces.add(rook2b);
 	}
 
 	public static void knightCreation(int rank, int colour, boolean captured, int move) {
 		knight1w = new Knight(3, 0, false, 0, 7, 2);
-		allPieces.add(knight1w);
+		allWhitePieces.add(knight1w);
 		knight2w = new Knight(3, 0, false, 0, 7, 5);
-		allPieces.add(knight2w);
+		allWhitePieces.add(knight2w);
 
 		knight1b = new Knight(3, 1, false, 0, 0, 2);
-		allPieces.add(knight1b);
+		allBlackPieces.add(knight1b);
 		knight2b = new Knight(3, 1, false, 0, 0, 5);
-		allPieces.add(knight2b);
+		allBlackPieces.add(knight2b);
 	}
 
 	public static void bishopCreation(int rank, int colour, boolean captured, int move) {
 		bishop1ww = new Bishop(4, 0, false, 0, 7, 1);
-		allPieces.add(bishop1ww);
+		allWhitePieces.add(bishop1ww);
 		bishop2wb = new Bishop(4, 0, false, 0, 7, 6);
-		allPieces.add(bishop2wb);
+		allWhitePieces.add(bishop2wb);
 
 		bishop1bw = new Bishop(4, 1, false, 0, 0, 6);
-		allPieces.add(bishop1bw);
+		allBlackPieces.add(bishop1bw);
 		bishop2bb = new Bishop(4, 1, false, 0, 0, 1);
-		allPieces.add(bishop2bb);
+		allBlackPieces.add(bishop2bb);
 	}
 
 	public static void queenCreation(int rank, int colour, boolean captured, int move) {
 		queenw = new Queen(5, 0, false, 0, 7, 3);
-		allPieces.add(queenw);
+		allWhitePieces.add(queenw);
 
 		queenb = new Queen(5, 1, false, 0, 0, 3);
-		allPieces.add(queenb);
+		allBlackPieces.add(queenb);
 	}
 
 	public static void kingCreation(int rank, int colour, boolean captured, int move) {
 		kingw = new King(6, 0, false, 0, 7, 4);
-		allPieces.add(kingw);
+		allWhitePieces.add(kingw);
 
 		kingb = new King(6, 1, false, 0, 0, 4);
-		allPieces.add(kingb);
+		allBlackPieces.add(kingb);
 	}
-
-
 
 	public static Object[][] chessBoard() {
 		Object[][] board = new Object[rows][columns];
@@ -407,6 +406,9 @@ public class ChessBoard {
 				if (pieceName.contains("pawn")) {
 					System.out.print(pieceName);
 					Pawn piece = pawnMap.get(pieceName);
+					if (allBlackPieces.contains(piece)) {
+						System.out.println("You can't move that piece");
+					}else {
 					ArrayList<Object> destinations = piece.pawnMovement(board, piece.row, piece.col); 
 					if (destinations.isEmpty()) {
 						System.out.println("try another piece"); 
@@ -425,9 +427,13 @@ public class ChessBoard {
 							System.out.println("destination not valid piece"); 
 						}
 					}
+					}
 				} else if (pieceName.contains("king")){
 					System.out.print(pieceName);
 					King piece = kingMap.get(pieceName);
+					if (allBlackPieces.contains(piece)) {
+						System.out.println("You can't move that piece");
+					}else {
 					ArrayList<Object> destinations = piece.kingMovement(board, piece.row, piece.col); 
 					if (destinations.isEmpty()) {
 						System.out.println("try another piece"); 
@@ -450,9 +456,13 @@ public class ChessBoard {
 							System.out.println("destination not valid piece"); 
 						}
 					}
+					}
 				} else if (pieceName.contains("knight")){
 					System.out.print(pieceName);
 					Knight piece = knightMap.get(pieceName);
+					if (allBlackPieces.contains(piece)) {
+						System.out.println("You can't move that piece");
+					}else {
 					ArrayList<Object> destinations = piece.knightMovement(board, piece.row, piece.col); 
 					if (destinations.isEmpty()) {
 						System.out.println("try another piece"); 
@@ -475,9 +485,13 @@ public class ChessBoard {
 							System.out.println("destination not valid piece"); 
 						}
 					}
+					}
 				} else if (pieceName.contains("rook")){
 					System.out.print(pieceName);
 					Rook piece = rookMap.get(pieceName);
+					if (allBlackPieces.contains(piece)) {
+						System.out.println("You can't move that piece");
+					}else {
 					ArrayList<Object> destinations = piece.rookMovement(board, piece.row, piece.col); 
 					if (destinations.isEmpty()) {
 						System.out.println("try another piece"); 
@@ -500,9 +514,13 @@ public class ChessBoard {
 							System.out.println("destination not valid piece"); 
 						}
 					}
+					}
 				} else if (pieceName.contains("bishop")){
 					System.out.print(pieceName);
 					Bishop piece = bishopMap.get(pieceName);
+					if (allBlackPieces.contains(piece)) {
+						System.out.println("You can't move that piece");
+					}else {
 					ArrayList<Object> destinations = piece.bishopMovement(board, piece.row, piece.col); 
 					if (destinations.isEmpty()) {
 						System.out.println("try another piece"); 
@@ -525,9 +543,13 @@ public class ChessBoard {
 							System.out.println("destination not valid piece"); 
 						}
 					}
+					}
 				} else if (pieceName.contains("queen")){
 					System.out.print(pieceName);
 					Queen piece = queenMap.get(pieceName);
+					if (allBlackPieces.contains(piece)) {
+						System.out.println("You can't move that piece");
+					}else {
 					ArrayList<Object> destinations = piece.queenMovement(board, piece.row, piece.col); 
 					if (destinations.isEmpty()) {
 						System.out.println("try another piece"); 
@@ -550,21 +572,29 @@ public class ChessBoard {
 							System.out.println("destination not valid piece"); 
 						}
 					}
+					}
 				} else {
 					System.out.println("keyword does not exist, try again");
 				}
 				turn = 1;
 			} else {
+				//AI 
 				Random generator=new Random();
-				int comppieceindex = generator.nextInt(32);
-				ChessPieces comppiece = allPieces.get(comppieceindex);
+				int comppieceindex = generator.nextInt(16);
+				ChessPieces comppiece = allBlackPieces.get(comppieceindex);
 				String compPieceName = comppiece.name;
-				
+
 				if (compPieceName.contains("pawn")) {
 					Pawn comppawn = (Pawn) comppiece;
 					ArrayList<Object> destinations = comppawn.pawnMovement(board, comppiece.row, comppiece.col); 
 					if (destinations.isEmpty()) {
 						System.out.println("try another piece"); 
+					} else if (destinations.size() == 1) {
+						System.out.println(destinations.get(0));
+						List<Object> destinationSquare = (List<Object>) destinations.get(0);
+						int destRow = (int) destinationSquare.get(0);
+						int destCol = (int) destinationSquare.get(1);
+						movePiece(board, comppiece, comppiece.row,comppiece.col,destRow,destCol);
 					} else {
 						Random destinationGenerator = new Random();
 						int indexOfDestination = destinationGenerator.nextInt(destinations.size()-1);
@@ -573,13 +603,22 @@ public class ChessBoard {
 						int destRow = (int) destinationSquare.get(0);
 						int destCol = (int) destinationSquare.get(1);
 						movePiece(board, comppiece, comppiece.row,comppiece.col,destRow,destCol);
-						
 					}
 				} else if (compPieceName.contains("king")) {
 					King compking = (King) comppiece;
 					ArrayList<Object> destinations = compking.kingMovement(board, comppiece.row, comppiece.col); 
 					if (destinations.isEmpty()) {
 						System.out.println("try another piece"); 
+					} else if (destinations.size() == 1) {
+						System.out.println(destinations.get(0));
+						List<Object> destinationSquare = (List<Object>) destinations.get(0);
+						int destRow = (int) destinationSquare.get(0);
+						int destCol = (int) destinationSquare.get(1);
+						if (destinationSquare.contains(50)) {
+							capture(board, comppiece, comppiece.row, comppiece.col, destRow, destCol);
+						} else {
+						movePiece(board, comppiece, comppiece.row,comppiece.col,destRow,destCol);
+						}
 					} else {
 						Random destinationGenerator = new Random();
 						int indexOfDestination = destinationGenerator.nextInt(destinations.size()-1);
@@ -587,69 +626,124 @@ public class ChessBoard {
 						List<Object> destinationSquare = (List<Object>) destinations.get(indexOfDestination);
 						int destRow = (int) destinationSquare.get(0);
 						int destCol = (int) destinationSquare.get(1);
+						if (destinationSquare.contains(50)) {
+							capture(board, comppiece, comppiece.row, comppiece.col, destRow, destCol);
+						} else {
 						movePiece(board, comppiece, comppiece.row,comppiece.col,destRow,destCol);
-						
+						}
 					}
 				}else if (compPieceName.contains("knight")) {
-						Knight compknight = (Knight) comppiece;
-						ArrayList<Object> destinations = compknight.knightMovement(board, comppiece.row, comppiece.col); 
-						if (destinations.isEmpty()) {
-							System.out.println("try another piece"); 
+					Knight compknight = (Knight) comppiece;
+					ArrayList<Object> destinations = compknight.knightMovement(board, comppiece.row, comppiece.col); 
+					if (destinations.isEmpty()) {
+						System.out.println("try another piece"); 
+					} else if (destinations.size() == 1) {
+						System.out.println(destinations.get(0));
+						List<Object> destinationSquare = (List<Object>) destinations.get(0);
+						int destRow = (int) destinationSquare.get(0);
+						int destCol = (int) destinationSquare.get(1);
+						if (destinationSquare.contains(50)) {
+							capture(board, comppiece, comppiece.row, comppiece.col, destRow, destCol);
 						} else {
-							Random destinationGenerator = new Random();
-							int indexOfDestination = destinationGenerator.nextInt(destinations.size()-1);
-							System.out.println(destinations.get(indexOfDestination));
-							List<Object> destinationSquare = (List<Object>) destinations.get(indexOfDestination);
-							int destRow = (int) destinationSquare.get(0);
-							int destCol = (int) destinationSquare.get(1);
-							movePiece(board, comppiece, comppiece.row,comppiece.col,destRow,destCol);
-							
+						movePiece(board, comppiece, comppiece.row,comppiece.col,destRow,destCol);
 						}
+					} else {
+						Random destinationGenerator = new Random();
+						int indexOfDestination = destinationGenerator.nextInt(destinations.size()-1);
+						System.out.println(destinations.get(indexOfDestination));
+						List<Object> destinationSquare = (List<Object>) destinations.get(indexOfDestination);
+						int destRow = (int) destinationSquare.get(0);
+						int destCol = (int) destinationSquare.get(1);
+						if (destinationSquare.contains(50)) {
+							capture(board, comppiece, comppiece.row, comppiece.col, destRow, destCol);
+						} else {
+						movePiece(board, comppiece, comppiece.row,comppiece.col,destRow,destCol);
+						}
+					}
 				}else if (compPieceName.contains("rook")) {
-							Rook comprook = (Rook) comppiece;
-							ArrayList<Object> destinations = comprook.rookMovement(board, comppiece.row, comppiece.col); 
-							if (destinations.isEmpty()) {
-								System.out.println("try another piece"); 
-							} else {
-								Random destinationGenerator = new Random();
-								int indexOfDestination = destinationGenerator.nextInt(destinations.size()-1);
-								System.out.println(destinations.get(indexOfDestination));
-								List<Object> destinationSquare = (List<Object>) destinations.get(indexOfDestination);
-								int destRow = (int) destinationSquare.get(0);
-								int destCol = (int) destinationSquare.get(1);
-								movePiece(board, comppiece, comppiece.row,comppiece.col,destRow,destCol);
-								
-							}
+					Rook comprook = (Rook) comppiece;
+					ArrayList<Object> destinations = comprook.rookMovement(board, comppiece.row, comppiece.col); 
+					if (destinations.isEmpty()) {
+						System.out.println("try another piece"); 
+					} else if (destinations.size() == 1) {
+						System.out.println(destinations.get(0));
+						List<Object> destinationSquare = (List<Object>) destinations.get(0);
+						int destRow = (int) destinationSquare.get(0);
+						int destCol = (int) destinationSquare.get(1);
+						if (destinationSquare.contains(50)) {
+							capture(board, comppiece, comppiece.row, comppiece.col, destRow, destCol);
+						} else {
+						movePiece(board, comppiece, comppiece.row,comppiece.col,destRow,destCol);
+						}
+					} else {
+						Random destinationGenerator = new Random();
+						int indexOfDestination = destinationGenerator.nextInt(destinations.size()-1);
+						System.out.println(destinations.get(indexOfDestination));
+						List<Object> destinationSquare = (List<Object>) destinations.get(indexOfDestination);
+						int destRow = (int) destinationSquare.get(0);
+						int destCol = (int) destinationSquare.get(1);
+						if (destinationSquare.contains(50)) {
+							capture(board, comppiece, comppiece.row, comppiece.col, destRow, destCol);
+						} else {
+						movePiece(board, comppiece, comppiece.row,comppiece.col,destRow,destCol);
+						}
+					}
 				}else if (compPieceName.contains("bishop")) {
-								Bishop compbishop = (Bishop) comppiece;
-								ArrayList<Object> destinations = compbishop.bishopMovement(board, comppiece.row, comppiece.col); 
-								if (destinations.isEmpty()) {
-									System.out.println("try another piece"); 
-								} else {
-									Random destinationGenerator = new Random();
-									int indexOfDestination = destinationGenerator.nextInt(destinations.size()-1);
-									System.out.println(destinations.get(indexOfDestination));
-									List<Object> destinationSquare = (List<Object>) destinations.get(indexOfDestination);
-									int destRow = (int) destinationSquare.get(0);
-									int destCol = (int) destinationSquare.get(1);
-									movePiece(board, comppiece, comppiece.row,comppiece.col,destRow,destCol);
-									
-								}
+					Bishop compbishop = (Bishop) comppiece;
+					ArrayList<Object> destinations = compbishop.bishopMovement(board, comppiece.row, comppiece.col); 
+					if (destinations.isEmpty()) {
+						System.out.println("try another piece"); 
+					} else if (destinations.size() == 1) {
+						System.out.println(destinations.get(0));
+						List<Object> destinationSquare = (List<Object>) destinations.get(0);
+						int destRow = (int) destinationSquare.get(0);
+						int destCol = (int) destinationSquare.get(1);
+						if (destinationSquare.contains(50)) {
+							capture(board, comppiece, comppiece.row, comppiece.col, destRow, destCol);
+						} else {
+						movePiece(board, comppiece, comppiece.row,comppiece.col,destRow,destCol);
+						}
+					} else {
+						Random destinationGenerator = new Random();
+						int indexOfDestination = destinationGenerator.nextInt(destinations.size()-1);
+						System.out.println(destinations.get(indexOfDestination));
+						List<Object> destinationSquare = (List<Object>) destinations.get(indexOfDestination);
+						int destRow = (int) destinationSquare.get(0);
+						int destCol = (int) destinationSquare.get(1);
+						if (destinationSquare.contains(50)) {
+							capture(board, comppiece, comppiece.row, comppiece.col, destRow, destCol);
+						} else {
+						movePiece(board, comppiece, comppiece.row,comppiece.col,destRow,destCol);
+						}
+					}
 				}else if (compPieceName.contains("queen")) {
-									Queen compqueen = (Queen) comppiece;
-									ArrayList<Object> destinations = compqueen.queenMovement(board, comppiece.row, comppiece.col); 
-									if (destinations.isEmpty()) {
-										System.out.println("try another piece"); 
-									} else {
-										Random destinationGenerator = new Random();
-										int indexOfDestination = destinationGenerator.nextInt(destinations.size()-1);
-										System.out.println(destinations.get(indexOfDestination));
-										List<Object> destinationSquare = (List<Object>) destinations.get(indexOfDestination);
-										int destRow = (int) destinationSquare.get(0);
-										int destCol = (int) destinationSquare.get(1);
-										movePiece(board, comppiece, comppiece.row,comppiece.col,destRow,destCol);
-										
-									}
+					Queen compqueen = (Queen) comppiece;
+					ArrayList<Object> destinations = compqueen.queenMovement(board, comppiece.row, comppiece.col); 
+					if (destinations.isEmpty()) {
+						System.out.println("try another piece"); 
+					} else if (destinations.size() == 1) {
+						System.out.println(destinations.get(0));
+						List<Object> destinationSquare = (List<Object>) destinations.get(0);
+						int destRow = (int) destinationSquare.get(0);
+						int destCol = (int) destinationSquare.get(1);
+						if (destinationSquare.contains(50)) {
+							capture(board, comppiece, comppiece.row, comppiece.col, destRow, destCol);
+						} else {
+						movePiece(board, comppiece, comppiece.row,comppiece.col,destRow,destCol);
+						}
+					} else {
+						Random destinationGenerator = new Random();
+						int indexOfDestination = destinationGenerator.nextInt(destinations.size()-1);
+						System.out.println(destinations.get(indexOfDestination));
+						List<Object> destinationSquare = (List<Object>) destinations.get(indexOfDestination);
+						int destRow = (int) destinationSquare.get(0);
+						int destCol = (int) destinationSquare.get(1);
+						if (destinationSquare.contains(50)) {
+							capture(board, comppiece, comppiece.row, comppiece.col, destRow, destCol);
+						} else {
+						movePiece(board, comppiece, comppiece.row,comppiece.col,destRow,destCol);
+						}
+					}
 				}else{
 					System.out.println("I can't move that");
 				}

@@ -27,7 +27,7 @@ public class Bishop extends ChessPieces{
 						moveLocations.add(Arrays.asList(row+i,col+i, 50)); 
 						break;
 					} else {
-						System.out.println(" can't go up (anymore)");
+						System.out.println(" can't go down right (anymore)");
 						break;
 					}
 				} else if (ChessBoard.inBoundary (board, row + i, col + i)) {
@@ -43,7 +43,7 @@ public class Bishop extends ChessPieces{
 						moveLocations.add(Arrays.asList(row + i, col - i, 50)); 
 						break;
 					} else {
-						System.out.println(" can't go up (anymore)");
+						System.out.println(" can't go down left (anymore)");
 						break;
 					}
 				} else if (ChessBoard.inBoundary (board, row + i, col - i)) {
@@ -59,7 +59,7 @@ public class Bishop extends ChessPieces{
 						moveLocations.add(Arrays.asList(row - i, col + i, 50)); 
 						break;
 					} else {
-						System.out.println(" can't go up (anymore)");
+						System.out.println(" can't go up right (anymore)");
 						break;
 					}
 				} else if (ChessBoard.inBoundary (board, row - i, col + i)) {
@@ -75,7 +75,7 @@ public class Bishop extends ChessPieces{
 						moveLocations.add(Arrays.asList(row - i, col - i, 50)); 
 						break;
 					} else {
-						System.out.println(" can't go up (anymore)");
+						System.out.println(" can't go up left (anymore)");
 						break;
 					}
 				} else if (ChessBoard.inBoundary (board, row - i, col - i)) {
