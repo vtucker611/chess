@@ -240,9 +240,35 @@ public class ChessBoard {
 		}
 	}
 	
-	//public static void capture (Object[][] board, ChessPieces piece, int sourceRow, int sourceCol, int destRow, int destCol){
-	//
-	//}
+	public static void capture (Object[][] board, ChessPieces piece, int sourceRow, int sourceCol, int destRow, int destCol){
+		System.out.println("Piece " + piece + " captures piece at row " + destRow + ", column " + destCol + ".");
+
+		if (piece.row % 2 == 0 && piece.col % 2 == 0) {
+			board[piece.row][piece.col] = 0;
+		} else if (piece.row % 2 == 0 && piece.col % 2 != 0) {
+			board[piece.row][piece.col] = 1;
+		} else if (piece.row % 2 != 0 && piece.col % 2 == 0) {
+			board[piece.row][piece.col] = 1;
+		} else if (piece.row % 2 != 0 && piece.col % 2 != 0) {
+			board[piece.row][piece.col] = 0;
+		}
+
+		board [destRow][destCol] = piece; 
+		for(int i=0; i<rows; i++) {
+
+			for(int j = 0; j < columns; j++) {
+				System.out.print(board[i][j]);
+				System.out.print("  ");
+			}
+			System.out.println();
+		}
+		ChessPieces capturedPiece = (ChessPieces) board[destRow][destCol];
+		capturedPiece.captured = true;
+		piece.row = destRow;
+		piece.col = destCol;
+		piece.move++;
+		System.out.println(piece + " has moved " + piece.move + " times");
+	}
 	
 	//ai black pieces see where it can go, random piece
 
@@ -410,13 +436,13 @@ public class ChessBoard {
 					if(board[rowScan][columnScan].equals(0) || board[rowScan][columnScan].equals(1)) {
 						if(destinations.contains(Arrays.asList(rowScan,columnScan))) { 
 							movePiece(board, piece, piece.row, piece.col, rowScan, columnScan);
-						} 
-						else if(destinations.contains(Arrays.asList(rowScan,columnScan, 50)))
-						{
-							System.out.println("I can capture " + rowScan + ", " + columnScan);
-						} else{
+						}  else{
 							System.out.println("destination not valid boundary"); 
 						}
+					}	else if(destinations.contains(Arrays.asList(rowScan,columnScan, 50))) {
+							System.out.println("I can capture " + rowScan + ", " + columnScan);
+							capture(board, piece, piece.row, piece.col, rowScan, columnScan);
+
 					} else {
 						System.out.println("destination not valid piece"); 
 					}

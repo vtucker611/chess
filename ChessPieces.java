@@ -3,7 +3,7 @@ package projectPackage;
 public class ChessPieces {
 	public int rank;
 	public int colour; //white = 0, black = 1
-	private boolean captured;
+	public boolean captured;
 	public int move; 
 	public int row;
 	public int col;
